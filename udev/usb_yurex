@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DRIVER_PATH=/sys/bus/usb/drivers
+
+/sbin/modprobe -v -s yurex.ko
+
+echo -n "$1" > $DRIVER_PATH/usbhid/unbind 2>/dev/null
+echo -n "$1" > $DRIVER_PATH/yurex/bind    2>/dev/null
+
+chmod 666 /dev/yurex[0-9]*
+
+exit 0

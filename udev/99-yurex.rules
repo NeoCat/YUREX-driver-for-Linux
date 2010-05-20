@@ -1,0 +1,2 @@
+ACTION=="add", BUS=="usb", SYSFS{idVendor}=="0c45", SYSFS{idProduct}=="1010", \
+    RUN+="usb_yurex '%b:1.0'"

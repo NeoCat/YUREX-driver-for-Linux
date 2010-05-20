@@ -1,0 +1,28 @@
+	USB driver for Meywa-Denki and Kayac YUREX
+
+The YUREX is a BBU (leg shakes) sensor, which is a USB HID
+as a definition. However, it is actually a sensor with a
+counter, so this driver provides a character device to
+read and write the counter via /dev/yurex[0-9]*.
+Instead, this patch adds a blacklist entry for YUREX not to
+recognized as a ubshid.
+See http://bbu.kayac.com/en/ for more information about YUREX.
+
+How to use:
+  1. make
+  2. sudo make install && modprobe yurex ( or, sudo insmod yurex.ko )
+  3. Plug-in YUREX to your computer's USB port.
+  4. /dev/yurex0 is created ! (If not, please see below.)
+  5. `cat /dev/yurex0` to read the current BBU count.
+  6. check some sample programs in sample/
+
+In some environments, usbhid driver may take up the device and
+this yurex driver cannot detect it. In this case, a message
+below shows up in `dmesg`:
+  generic-usb 0003:0C45:1010.0004: input,hidraw2: USB HID v1.10 Device [JESS YUREX] on usb-0000:02:00.0-2.1/input0
+
+To avoid this, you may add udev/99-yurex.rules into /etc/udev/rules.d/ ,
+and udev/usb_yurex into /lib/udev/ .
+This rule unbind YUREX from the usbhid driver, and re-bind it to yurex driver.
+When yurex driver get the device correctly, `dmesg` says:
+  yurex 2-2.1:1.0: USB Yurex device now attached to Yurex-224
