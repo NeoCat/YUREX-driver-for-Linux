@@ -1,12 +1,11 @@
-	USB driver for Meywa-Denki and Kayac YUREX
+USB driver for Meywa-Denki and Kayac YUREX
 
-The YUREX is a BBU (leg shakes) sensor, which is a USB HID
-as a definition. However, it is actually a sensor with a
-counter, so this driver provides a character device to
-read and write the counter via /dev/yurex[0-9]*.
-Instead, this patch adds a blacklist entry for YUREX not to
-recognized as a ubshid.
-See http://bbu.kayac.com/en/ for more information about YUREX.
+Meywa-Denki/Kayac YUREX is a leg-shakes sensor device.
+See http://bbu.kayac.com/en/about/ for further information.
+This driver support read/write the leg-shakes counter in the device
+via a device file /dev/yurex[0-9]*.
+
+This driver is merged in Linux-2.6.37.
 
 How to use:
   1. make
